@@ -1,46 +1,57 @@
-// import { pipe, gotenberg, convert, html, please } from 'gotenberg-js-client'
 var got = require("gotenberg-js-client")
 var fs = require('fs');
 
-// prettier-ignore
-// const toPDF = got.pipe(
-//     got.gotenberg('http://localhost:3000'),
-//     got.convert,
-//     got.html,
-//     got.please
-// )
 
-// --- 8< ---
 
-// convert file from disk
-// const pdf = toPDF('/home/blaise/Desktop/testpdfjs/test2.docx')
-// console.log('Hello world!')
-// console.log(pdf)
-// or convert stream
-// const pdf = await toPDF(fs.createReadStream('index.html'))
-
-// or convert string!
-// const pdf = await toPDF('<html>...</html>')
-
-// library returns NodeJS.ReadableStream,
-// so you can save it to file, if you want, for example
+//office
 const toPDF = got.pipe(
     got.gotenberg('http://localhost:3000'),
     got.convert,
     got.office,
-    got.to(got.landscape),
+    got.to(got.a4, got.landscape),
+    got.set(got.filename('result.pdf')),
     got.please
   )
-  
+
   // --- 8< ---
-  
-//   const pdf = toPDF('test.doc')
-const pdf = toPDF('file:///home/blaise/Desktop/testpdfjs/test2.docx')
+  const start = async function() {
+    const pdf = await toPDF('file://test2.docx')
+
+      console.log('halo')
+      pdf.pipe(fs.createWriteStream('index1.pdf'))
+  }
+ 
+
+  start();
 
 
-// pdf.pipe(fs.createWriteStream('index1.pdf'))
-// or you can send it as response in Express application
-// app.get('/pdf', function(req, res) {
-  //...
-//   pdf.pipe(res)
-// })
+  // html
+// const toPDF = got.pipe(
+//     got.gotenberg('http://localhost:3000'),
+//     got.convert,
+//     got.markdown,
+//     got.please
+//   )
+// const start = async function() {
+//     const pdf = await toPDF({
+//         'index.html': `
+//           <!doctype html>
+//           <html lang="en">
+//             <head>
+//               <meta charset="utf-8">
+//               <title>My PDF</title>
+//             </head>
+//             <body>
+//               {{ toHTML .DirPath "content.md" }}
+//             </body>
+//           </html>`,
+      
+//         'content.md': `
+//           # My awesome markdown
+//           ...
+//         `,
+//       })
+
+//       console.log('halo')
+//       pdf.pipe(fs.createWriteStream('index.pdf'))
+//   }
