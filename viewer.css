@@ -1,0 +1,20 @@
+#canvas_container{
+    width:900px;
+    height:200px;
+    overflow: auto;
+    background: #333;
+    text-align:center;
+    border: 2px solid;
+}
+
+#doc_output{
+    width: 700px;
+
+
+    background: #fff
+}
+
+#buff{
+    width: 10%;
+    background: #333;
+}

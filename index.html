@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>PDF.js test</title>
+        <link rel="stylesheet" type="text/css" href="viewer.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.3.200/pdf.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mammoth@1.4.8/mammoth.browser.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.9/mammoth.browser.js"></script>
+        <script src="test.js"></script>
+    </head>
+
+
+    <body>
+
+        <input type="text" id="file-src" />
+        <div><h2>PDF VIEWER</h2></div>
+
+        </div>
+        <div id="my_pdf_viewer">
+            <div id="canvas_container">
+                <canvas id="pdf_renderer"></canvas>
+            </div>
+            <div id="nav-controls">
+                <button id="go_previous">Previous</button>
+                <input type="number" value="1" id="current_page">
+                <button id="go_next">Next</button>
+            </div>
+            <div id="zoom-controls">
+                <button id="zoom_in">+</button>
+                <button id="zoom_out">-</button>
+            </div>
+        </div>
+
+
+        <div><h2>DOCs VIEWER</h2></div>
+        <input id="document" type="file">
+        <div id="my_doc_viewer">
+            <div id="canvas_container">
+                <div id="buff"></div>
+                <div id="doc_output"></div>
+                <div id="buff"></div>
+            </div>
+            <div id="doc_nav-controls">
+                <button id="doc_go_previous">Previous</button>
+                <input type="doc_number" value="1" id="doc_current_page">
+                <button id="doc_go_next">Next</button>
+            </div>
+            <div id="doc_zoom-controls">
+                <button id="doc_zoom_in">+</button>
+                <button id="doc_zoom_out">-</button>
+            </div>
+        </div>
+
+        curl --request POST \
+        --url http://127.0.0.1:3000/convert/office \
+        --header 'Content-Type: multipart/form-data' \
+        --form files=@test.doc \
+        > result.pdf
+    
+        curl --request POST     --url http://127.0.0.1:3000/convert/url     --header 'Content-Type: multipart/form-data'     --form remoteURL='https://www.poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309423' --form waitTimeout=2000 > test1.pdf
+    
+    
+    curl --request POST \
+    --url http://localhost:3000/convert/url 
+    --header 'Content-Type: multipart/form-data' 
+    --form remoteURL='https://www.poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309423' 
+    --form waitTimeout=2000 > test1.pdf
+    https://bip.poznan.pl/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309423
+    
+    
+    
+        --header 'Content-Type: multipart/form-data' \
+        --form files=@index.html \
+        --form waitTimeout=2.5
+    </body>
+
+
+    <!-- ConverterToPDF -->
+    <script>
+  
+    </script>
+
+    <!-- DOCs viewer (probably) -->
+    <script>
+
+        document.getElementById("document")
+            .addEventListener("change", handleFileSelect, false);
+            
+        function handleFileSelect(event) {
+            readFileInputEventAsArrayBuffer(event, function(arrayBuffer) {
+                mammoth.convertToHtml({arrayBuffer: arrayBuffer})
+                    .then(displayResult)
+                    .done();
+            });
+        }
+        
+        function displayResult(result) {
+            document.getElementById("doc_output").innerHTML = result.value;
+            
+            var messageHtml = result.messages.map(function(message) {
+                return '<li class="' + message.type + '">' + escapeHtml(message.message) + "</li>";
+            }).join("");
+            
+        }
+        
+        function readFileInputEventAsArrayBuffer(event, callback) {
+            var file = event.target.files[0];
+
+            var reader = new FileReader();
+            
+            reader.onload = function(loadEvent) {
+                var arrayBuffer = loadEvent.target.result;
+                callback(arrayBuffer);
+            };
+            
+            reader.readAsArrayBuffer(file);
+        }
+
+        function escapeHtml(value) {
+            return value
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+                
+    </script>
+    
+    <!-- PDFjs viewer-->
+    <script>
+         //read file src
+        document.getElementById('file-src').addEventListener('keypress', (e) => {
+            e = e || window.event;
+
+
+            if(e.keyCode == 13) {
+                var elem = e.srcElement || e.target;
+
+
+                if (elem.value == null || elem.value == "") {
+                    alert('empty file')
+                }
+                else {
+                    if(isProperFileExtension(elem.value)) {
+                        // getPDFsource('http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309423');
+                        getPDFsource(elem.value)
+                    }
+                }
+            }
+        });
+
+      
+
+        function isProperFileExtension(fileSource) {
+            var last3 = fileSource.slice(fileSource.length -3, fileSource.length);
+            var last4 = fileSource.slice(fileSource.length -4, fileSource.length);
+            
+            alert(last3 + ' ' + last4)
+
+            if(last3 == 'pdf' || last3 == 'doc' || last4 == 'docx') {
+                return true;
+            }
+
+            return false;
+
+        }
+        // PDF.JS viewing tool
+        var myState = {
+                    pdf:null,
+                    currentPage:1,
+                    zoom:1
+                }
+
+        function getPDFsource(pdfSource) {
+            pdfjsLib.getDocument(pdfSource).then(pdf => {
+                    alert(pdfSource)
+                    myState.pdf = pdf
+                    render()
+                })
+        }
+
+        function render() {
+            myState.pdf.getPage(myState.currentPage).then(page => {
+                var canvas = document.getElementById("pdf_renderer")
+                var ctx = canvas.getContext("2d")
+                var viewport = page.getViewport(myState.zoom, -90)
+
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                //render
+                page.render({
+                    canvasContext:ctx,
+                    viewport:viewport
+                })
+            })
+        }
+
+        document.getElementById('go_previous').addEventListener('click', (e) => {
+            if(myState.pdf == null || myState.currentPage == 1) return; //pierwsza strona
+
+            myState.currentPage = myState.currentPage - 1;
+            document.getElementById('current_page').value = myState.currentPage;
+
+            render()
+        })
+
+        document.getElementById('go_next').addEventListener('click', (e) => {
+            if(myState.pdf == null || myState.currentPage > myState.pdf._pdfInfo.numPages) return; //ostatnia strona
+
+            myState.currentPage = myState.currentPage + 1;
+            document.getElementById('current_page').value = myState.currentPage;
+
+            render()
+        })
+
+        document.getElementById('current_page').addEventListener('keypress', (e) => {
+            if(myState.pdf == null) return;
+
+            //keycode
+            var code = (e.keyCode ? e.keyCode : e.which)
+
+            if(code == 13)
+            {
+                var desiredPage = document.getElementById('current_page').valueAsNumber
+
+                if(desiredPage >= 1 && desiredPage <= myState.pdf._pdfInfo.numPages)
+                {
+                    myState.currentPage = desiredPage
+                    document.getElementById('current_page').value = desiredPage;
+
+                    render();
+                }
+            }
+        })
+
+        document.getElementById('zoom_in').addEventListener('click', (e) => {
+            if(myState.pdf == null) return;
+            if(myState.zoom < 3) {
+                myState.zoom = myState.zoom + 0.5
+                render()
+            }
+        })
+
+        document.getElementById('zoom_out').addEventListener('click', (e) => {
+            if(myState.pdf == null) return;
+            if(myState.zoom > 0.5) {
+                myState.zoom = myState.zoom - 0.5
+                render()
+            }
+        })
+    </script>
+</html>
