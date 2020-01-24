@@ -5,36 +5,27 @@ var save = require('save-file')
 
 //url
 // prettier-ignore
+
 const toPDF = got.pipe(
-        got.gotenberg('http://localhost:3000'),
-        got.convert,
-        got.url,
-        got.please,
-        got.set( 
-            got.timeout(20)
-        )
+    got.gotenberg('http://localhost:3000'),
+    got.convert,
+    got.office,
+    got.to(got.a4, got.landscape),
+    got.set(got.filename('result.pdf')),
+    got.please
   )
-  
+
   // --- 8< ---
-
-  const getfile = async function(filepath) {
-    console.log('getfile')
-    const buff = await save('data-uri string', filepath)
-    console.log( buff.saveSync)
-    start( buff.saveSync)
-  }
-  
-  // 'https://bip.poznan.pl/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309423'
-  const start = async function(file) {
-    console.log('start')
-
-    const pdf = await toPDF(file)
+const start = async function() {
+    const pdf = await toPDF('file://test2.docx')
 
       console.log('halo')
-      pdf.pipe(fs.createWriteStream('remote.pdf'))
+      pdf.pipe(fs.createWriteStream('index1.pdf'))
   }
 
-  getfile('https://bip.poznan.pl/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309423')
+start();
+
+getfile('https://bip.poznan.pl/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309423')
  
 
 //   var fileUrl = 'https://bip.poznan.pl/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309423'
