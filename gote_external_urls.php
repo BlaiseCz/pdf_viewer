@@ -1,4 +1,6 @@
 <?php
+    require_once __DIR__ . '/vendor/autoload.php';
+
     $url = 'https://bip.poznan.pl/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309423';
     
     //Download the file using file_get_contents.
@@ -20,4 +22,5 @@
     if($save === false){
         throw new Exception('Failed to save file to: ' , $fileName);
     }
+
 ?>
