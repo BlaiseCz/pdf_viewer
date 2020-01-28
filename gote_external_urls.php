@@ -30,16 +30,12 @@
             echo "processing...\n";        
             $request = new OfficeRequest($files);
             $request->setWaitTimeout(20);
-            // $request->setPaperSize(Request::A4);
-            // $request->setMargins(Request::NO_MARGINS);
-            // $request->setLandscape(true);
-
             $client->store($request, $pathTofiles.'/'.$file_name);
             $client->post($request);  
         } catch (RequestException $e) {
-            // this exception is thrown if given paper size or margins are not correct.
+            echo 'Wystąpił wyjątek nr '.$e->getCode().', jego komunikat to:'.$e->getMessage();
         } catch (ClientException $e) {
-            // this exception is thrown by the client if the API has returned a code != 200.
+            echo 'Wystąpił wyjątek nr '.$e->getCode().', jego komunikat to:'.$e->getMessage();
         } 
 
         echo "creating pdf done..\n";

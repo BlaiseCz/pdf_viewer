@@ -26,6 +26,7 @@ require_once __DIR__ . '/vendor/autoload.php';
         $request = new OfficeRequest($files);
         $request->setWaitTimeout(20);
         $request->setLandscape(true);
+
         
         // store method allows you to... store the resulting PDF in a particular destination.
         $client->store($request, $dest);
