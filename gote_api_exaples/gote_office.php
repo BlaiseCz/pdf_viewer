@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
+require '../vendor/autoload.php';
 
     use TheCodingMachine\Gotenberg\Client;
     use TheCodingMachine\Gotenberg\DocumentFactory;
@@ -14,7 +14,7 @@ require_once __DIR__ . '/vendor/autoload.php';
     //pierwszy param -> nazwa pliku, wg ktorej gutenberg conwertuje do formatu pdf
     //jesli pojawia sie dwa razy te same nazwy to zignoruje druga
     $files = [
-        DocumentFactory::makeFromPath('test.doc',  $pathToFile.'/test.doc'),
+        // DocumentFactory::makeFromPath('test.doc',  $pathToFile.'/test.doc'),
         // DocumentFactory::makeFromPath('test1.doc',  $pathToFile.'/test.doc'),
         DocumentFactory::makeFromPath('test2.docx', $pathToFile.'/test2.docx'),
         // DocumentFactory::makeFromPath('test2.docx', $pathToFile),

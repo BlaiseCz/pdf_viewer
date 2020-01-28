@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>PDF.js test</title>
+        <link rel="stylesheet" type="text/css" href="viewer.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.3.200/pdf.min.js"></script>
+        <script src="pdfviewer.js"></script>
+    </head>
+
+
+    <body>
+
+        <input type="text" id="file-src" />
+        <div><h2>PDF VIEWER</h2></div>
+
+        </div>
+        <div id="my_pdf_viewer">
+            <div id="canvas_container">
+                <canvas id="pdf_renderer"></canvas>
+            </div>
+            <div id="nav-controls">
+                <button id="go_previous">Previous</button>
+                <input type="number" value="1" id="current_page">
+                <button id="go_next">Next</button>
+            </div>
+            <div id="zoom-controls">
+                <button id="zoom_in">+</button>
+                <button id="zoom_out">-</button>
+            </div>
+        </div>
+    </body>
+</html>

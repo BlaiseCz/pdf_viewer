@@ -1,6 +1,6 @@
 <?php
     
-    require_once __DIR__ . '/vendor/autoload.php';
+    require '../vendor/autoload.php';
     use TheCodingMachine\Gotenberg\Client;
     use TheCodingMachine\Gotenberg\DocumentFactory;
     use TheCodingMachine\Gotenberg\OfficeRequest;
@@ -26,6 +26,8 @@
             DocumentFactory::makeFromString('test.doc',  $file_string),
         ];
 
+
+        
         try {        
             echo "processing...\n";        
             $request = new OfficeRequest($files);
