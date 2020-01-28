@@ -13,66 +13,12 @@ window.onload = function() {
                 alert('empty file')
             }
             else {
-                if(isProperFileExtension(elem.value)) {
-                    getPDFsource(elem.value)
-                }
+                getPDFsource(elem.value)
             }
         }
     });
 
 
-   
-    function isProperFileExtension(fileSource) {
-        var last3 = fileSource.slice(fileSource.length -3, fileSource.length);
-        var last4 = fileSource.slice(fileSource.length -4, fileSource.length);
-        
-        alert(last3 + ' ' + last4)
-    
-        if(last3 == 'pdf' || last3 == 'doc' || last4 == 'docx') {
-            return true;
-        }
-    
-        return false;
-    
-    }
-
-    function LoadPdf() {
-    // Sending Ajax request to the controller to get base 64 string
-    $.ajax({
-        url: '/api/PdfViewer/GetDocument',
-        type: 'POST',
-        dataType: 'json',
-        crossDomain: true,
-        traditional: true,
-        contentType: 'application/json; charset=utf-8',
-        data: '',
-        success: function (data) {
-            // Render the PDF viewer control
-            var viewer = new ej.pdfviewer.PdfViewer({      
-            //Sets the base64 string to the documentPath API          
-                documentPath: data,
-                serviceUrl: '/api/PdfViewer'
-            });
-            ej.pdfviewer.PdfViewer.Inject(ej.pdfviewer.TextSelection, ej.pdfviewer.TextSearch, ej.pdfviewer.Print, ej.pdfviewer.Navigation);
-            viewer.appendTo('#pdfViewer');
-        },
-        error: function (msg, textStatus, errorThrown) {
-            alert('Exception' + msg.responseText);
-        }
-    });
-    }
-
-    //asynchronous reader
-    $.ajax({
-        url: 'http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309410',
-        success: function(data) {
-          var blob=new Blob([data]);
-          var link=document.createElement('a');
-          link.href=window.URL.createObjectURL(blob);
-          link.download="<FILENAME_TO_SAVE_WITH_EXTENSION>";
-          link.click();
-        }
-      });
     // PDF.JS viewing tool
     var myState = {
                 pdf:null,
