@@ -10,7 +10,7 @@
     // $url = 'http://poznan.pl/public/bip/attachments.att?co=show&instance=1058&parent=37297&lang=pl&id=312378';
     // $url = 'http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309422';
     $url = 'http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309410';
-    $file_name = 'test4.pdf';
+    $file_name = 'test.pdf';
     $client_path = 'http://localhost:3000';
 
     create_pdf($url, $file_name, $client_path);
@@ -30,8 +30,15 @@
             echo "processing...\n";        
             $request = new OfficeRequest($files);
             $request->setWaitTimeout(20);
-            $client->store($request, $pathTofiles.'/'.$file_name);
-            $client->post($request);  
+            
+            // $client->store($request, $pathTofiles.'/'.$file_name);
+            // $response = $this->handleResponse($this->client->sendRequest($this->makeMultipartFormDataRequest($request)));
+            // $fileStream = $response->getBody();
+            $fileStream = $client->get_file_stream($request);            
+            $client->post($request);   
+            var_dump($fileStream);
+            // var_dump($request);
+            // var_dump($client);
         } catch (RequestException $e) {
             echo 'Wystąpił wyjątek nr '.$e->getCode().', jego komunikat to:'.$e->getMessage();
         } catch (ClientException $e) {
