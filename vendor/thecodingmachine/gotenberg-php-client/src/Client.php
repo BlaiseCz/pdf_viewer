@@ -61,13 +61,12 @@ final class Client
         fclose($fp);
     }
 
-    public function get_file_stream(GotenbergRequestInterface $request)
+    public function get_response(GotenbergRequestInterface $request)
     {
         if ($request->hasWebhook()) {
             throw new RequestException('Cannot use method store with a webhook.');
         }
-        $response = $this->handleResponse($this->client->sendRequest($this->makeMultipartFormDataRequest($request)));
-        return $response->getBody()->getContents();
+        return $this->handleResponse($this->client->sendRequest($this->makeMultipartFormDataRequest($request)));
     }
 
 
