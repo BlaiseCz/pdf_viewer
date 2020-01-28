@@ -28,12 +28,20 @@ window.onload = function() {
     
     function getPDFsource(pdfSource) {
         pdfjsLib.getDocument(pdfSource).then(pdf => {
-                alert(pdfSource)
+                alert('pdf source ' + pdfSource)
                 myState.pdf = pdf
                 render()
             })
     }
     
+    function render_from_stream(stream) {
+        console.log('render from stream\n')
+
+        pdfjsLib.
+    }
+
+    render_from_stream() 
+
     function render() {
         myState.pdf.getPage(myState.currentPage).then(page => {
             var canvas = document.getElementById("pdf_renderer")
