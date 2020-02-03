@@ -5,7 +5,7 @@ window.onload = function() {
 
     document.getElementById('view_pdf').addEventListener('click', (e) => {
             console.log('1tu')
-            getPDFsource('pdfs/test.pdf');
+            getPDFsource('http://localhost:8888/pdfviewer/pdf_viewer/gote_api_examples/gote_external_urls.php?url_address=http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309410&name=test');
             console.log('2tu')
     });
 
@@ -41,11 +41,11 @@ window.onload = function() {
             canvas.width = viewport.width;
             canvas.height = viewport.height;
     
-            render
+            // render
             page.render({
                 canvasContext:ctx,
                 viewport:viewport
-            })
+            });
             console.log('out of render..')
         })
     }

@@ -38,16 +38,8 @@
             $client->post($request);
             $client->store($request, '../pdfs/'.$name.'.pdf');
             return $fileStream;
-        } catch (RequestException $e) {
-            echo '3Wystąpił wyjątek nr '.$e->getCode().', jego komunikat to:'.$e->getMessage();
-        } catch (ClientException $e) {
-            echo '4Wystąpił wyjątek nr '.$e->getCode().', jego komunikat to:'.$e->getMessage();
-        } catch (\TheCodingMachine\Gotenberg\RequestException $e) {
-            echo '5Wystąpił wyjątek nr '.$e->getCode().', jego komunikat to:'.$e->getMessage();
-        } catch (\TheCodingMachine\Gotenberg\ClientException $e) {
-            echo '6Wystąpił wyjątek nr '.$e->getCode().', jego komunikat to:'.$e->getMessage();
         } catch (Exception $e) {
-            echo '7Wystąpił wyjątek nr '.$e->getCode().', jego komunikat to:'.$e->getMessage();
+            echo '3Wystąpił wyjątek nr '.$e->getCode().', jego komunikat to:'.$e->getMessage();
         }
 
         return '-1';
@@ -64,14 +56,13 @@
 
     $url1 = 'http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309410';
 
-
-//    [url_address] => http://poznan.pl/public/bip/attachments.att?co=show
-//    [instance] => 1057
-//    [parent] => 37297
-//    [lang] => pl
-//    [id] => 309410
-
-    print_r($_GET);
+    /**
+     * SET url which you want to be passed, try using urlencode() function, in my example it wasn't good solution
+     *
+     * pattern
+     * http://mypage.com?url_address=http://secondpage.com/att.pdf
+     */
+//    print_r($_GET);
     if(isset($_GET['url_address']) && isset($_GET['name']) && isset($_GET['instance'])
                                 && isset($_GET['parent']) && isset($_GET['lang']) && isset($_GET['id'])) {
 
@@ -81,8 +72,10 @@
         $url .= '$lang='.$_GET['lang'];
         $url .= '&id='.$_GET['id'];
 
-        echo 'http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309410'."\n";
-        echo $url;
+
+
+//        echo 'http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309410'."\n";
+//        echo $url;
 
         $name = $_GET['name'];
         echo create_pdf($url, $name);
