@@ -1,0 +1,5 @@
+version: '3'
+
+services:
+  gotenberg:
+      image: thecodingmachine/gotenberg:6
