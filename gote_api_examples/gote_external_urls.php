@@ -1,6 +1,9 @@
 <?php
     require '../vendor/autoload.php';
+    header('Content-Type: application/json');
 
+    use GuzzleHttp\Exception\ClientException;
+    use Http\Client\Exception\RequestException;
     use TheCodingMachine\Gotenberg\Client;
     use TheCodingMachine\Gotenberg\DocumentFactory;
     use TheCodingMachine\Gotenberg\OfficeRequest;
