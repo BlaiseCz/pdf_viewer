@@ -1,23 +1,13 @@
 window.onload = function() {
 
-    //read file src
-    document.getElementById('file-src').addEventListener('keypress', (e) => {
-        e = e || window.event;
-    
-    
-        if(e.keyCode === 13) {
-            var elem = e.srcElement || e.target;
-    
-    
-            if (elem.value == null || elem.value === "") {
-                alert('empty file')
-            }
-            else {
-                getPDFsource(elem.value)
-            }
-        }
-    });
+    console.log('pdfviewer.js - BlaiseCz');
 
+
+    document.getElementById('view_pdf').addEventListener('click', (e) => {
+            console.log('1tu')
+            getPDFsource('pdfs/test.pdf');
+            console.log('2tu')
+    });
 
     // PDF.JS viewing tool
     var myState = {
@@ -37,62 +27,12 @@ window.onload = function() {
     function render_from_stream(stream) {
         console.log('render from stream\n');
 
-        $http.get() (
-
-        )
-
     }
 
-    jQuery.ajax({
-        type: "POST",
-        url: 'localhost:create_pdf.php',
-        dataType: 'blob',
-        data: {functionname: 'add', arguments: [1, 2]},
-
-        success: function (obj, textstatus) {
-            if( !('error' in obj) ) {
-                yourVariable = obj.result;
-            }
-            else {
-                console.log(obj.error);
-            }
-        }
-    });
-
-    $scope.sendRef = function(ref) {
-        $http({
-            method: 'GET',
-            url: $scope.endpoint + 'attachments/PDF',
-            async: true,
-            headers: {
-                'Authorization': 'TOKEN!!!!'
-            },
-            params: {
-                ref: ref
-            },
-            responseType: 'arrayBuffer',
-            dataType:'blob'
-        })
-
-            .success(function(data) {
-                console.log(data);
-
-                var file = new Blob([(data['response'])], {type: 'application/pdf'});
-            //    var file = data['response'] //pdfjs hope so ;)))))))
-                var fileURL = URL.createObjectURL(file);
-                window.open(fileURL);
-                $scope.content = $sce.trustAsResourceUrl(fileURL)
-            })
-            .error( function (data, status) {
-                console.log('Error: ' + status);
-                console.log(data)
-
-            })
-    }
-
-    render_from_stream()
 
     function render() {
+        console.log('rendering started..')
+
         myState.pdf.getPage(myState.currentPage).then(page => {
             var canvas = document.getElementById("pdf_renderer");
             var ctx = canvas.getContext("2d");
@@ -101,11 +41,12 @@ window.onload = function() {
             canvas.width = viewport.width;
             canvas.height = viewport.height;
     
-            //render
+            render
             page.render({
                 canvasContext:ctx,
                 viewport:viewport
             })
+            console.log('out of render..')
         })
     }
     
@@ -166,4 +107,5 @@ window.onload = function() {
             render()
         }
     });
-}
+
+};
