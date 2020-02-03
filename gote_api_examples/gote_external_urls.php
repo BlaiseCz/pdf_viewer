@@ -9,9 +9,9 @@
     use TheCodingMachine\Gotenberg\DocumentFactory;
     use TheCodingMachine\Gotenberg\OfficeRequest;
 
-    function create_pdf($url, $name) {
+    function create_pdf($url) {
 
-        $client_path = 'http://localhost:3000';
+            $client_path = 'http://localhost:3000';
 
         try {
             $file_string = get_file_string_from_url($url);
@@ -36,7 +36,7 @@
             $fileStream = $response->getBody()->getContents();
             // var_dump($fileStream); // pdf            
             $client->post($request);
-            $client->store($request, '../pdfs/'.$name.'.pdf');
+//            $client->store($request, '../pdfs/'.$name.'.pdf');
             return $fileStream;
         } catch (Exception $e) {
             echo '3Wystąpił wyjątek nr '.$e->getCode().', jego komunikat to:'.$e->getMessage();
@@ -63,8 +63,10 @@
      * http://mypage.com?url_address=http://secondpage.com/att.pdf
      */
 //    print_r($_GET);
-    if(isset($_GET['url_address']) && isset($_GET['name']) && isset($_GET['instance'])
-                                && isset($_GET['parent']) && isset($_GET['lang']) && isset($_GET['id'])) {
+    if(isset($_GET['url_address']) && isset($_GET['instance'])
+                                && isset($_GET['parent']) && isset($_GET['lang']) && isset($_GET['id'])
+//        && isset($_GET['name'])
+    ) {
 
         $url = $_GET['url_address'];
         $url .= '&instance='.$_GET['instance'];
@@ -78,6 +80,6 @@
 //        echo $url;
 
         $name = $_GET['name'];
-        echo create_pdf($url, $name);
+        echo create_pdf($url);
     }
 ?>

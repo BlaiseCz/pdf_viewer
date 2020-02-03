@@ -1,15 +1,20 @@
 window.onload = function() {
 
-    console.log('pdfviewer.js - BlaiseCz');
+    console.log('###### pdfviewer.js - BlaiseCz ######');
 
 
     document.getElementById('view_pdf').addEventListener('click', (e) => {
             console.log('1tu')
-            getPDFsource('http://localhost:8888/pdfviewer/pdf_viewer/gote_api_examples/gote_external_urls.php?url_address=http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309410&name=test');
+
+            var link= 'https://bip.poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37857&lang=pl&id=313196';
+            var link2 = 'http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309410&';
+            getPDFsource('http://localhost:8888/pdfviewer/pdf_viewer/gote_api_examples/gote_external_urls.php?url_address='+link2);
             console.log('2tu')
     });
 
-    // PDF.JS viewing tool
+    /**
+     * PDF.JS VIEWING TOOL
+    */
     var myState = {
                 pdf:null,
                 currentPage:1,
@@ -23,12 +28,6 @@ window.onload = function() {
                 render()
             })
     }
-    
-    function render_from_stream(stream) {
-        console.log('render from stream\n');
-
-    }
-
 
     function render() {
         console.log('rendering started..')
@@ -36,8 +35,9 @@ window.onload = function() {
         myState.pdf.getPage(myState.currentPage).then(page => {
             var canvas = document.getElementById("pdf_renderer");
             var ctx = canvas.getContext("2d");
-            var viewport = page.getViewport(myState.zoom, 0);
-    
+            var viewport = page.getViewport({scale:myState.zoom});
+
+
             canvas.width = viewport.width;
             canvas.height = viewport.height;
     
@@ -64,7 +64,7 @@ window.onload = function() {
     });
     
     document.getElementById('go_next').addEventListener('click', (e) => {
-        if(myState.pdf == null || myState.currentPage > myState.pdf._pdfInfo.numPages) return; //ostatnia strona
+        if(myState.pdf == null || myState.currentPage >= myState.pdf._pdfInfo.numPages) return; //ostatnia strona
     
         myState.currentPage = myState.currentPage + 1;
         document.getElementById('current_page').value = myState.currentPage;
@@ -77,7 +77,8 @@ window.onload = function() {
     
         //keycode
         var code = (e.keyCode ? e.keyCode : e.which)
-    
+
+        var code1 = (e.key ? e.key : e.key)
         if(code === 13)
         {
             var desiredPage = document.getElementById('current_page').valueAsNumber
