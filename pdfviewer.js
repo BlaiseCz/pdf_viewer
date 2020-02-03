@@ -1,15 +1,11 @@
 window.onload = function() {
 
-    console.log('###### pdfviewer.js - BlaiseCz ######');
+    console.log('###### pdfviewer - BlaiseCz ######');
 
 
     document.getElementById('view_pdf').addEventListener('click', (e) => {
-            console.log('1tu')
-
-            var link= 'https://bip.poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37857&lang=pl&id=313196';
             var link2 = 'http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309410&';
             getPDFsource('http://localhost:8888/pdfviewer/pdf_viewer/gote_api_examples/gote_external_urls.php?url_address='+link2);
-            console.log('2tu')
     });
 
     /**
@@ -23,15 +19,12 @@ window.onload = function() {
     
     function getPDFsource(pdfSource) {
         pdfjsLib.getDocument(pdfSource).then(pdf => {
-                alert('pdf source ' + pdfSource);
                 myState.pdf = pdf;
                 render()
             })
     }
 
     function render() {
-        console.log('rendering started..')
-
         myState.pdf.getPage(myState.currentPage).then(page => {
             var canvas = document.getElementById("pdf_renderer");
             var ctx = canvas.getContext("2d");
@@ -46,13 +39,11 @@ window.onload = function() {
                 canvasContext:ctx,
                 viewport:viewport
             });
-            console.log('out of render..')
         })
     }
     
     /**
      * PDF CONTROLLERS
-     * 
      */
     document.getElementById('go_previous').addEventListener('click', (e) => {
         if(myState.pdf == null || myState.currentPage === 1) return; //pierwsza strona
@@ -78,7 +69,6 @@ window.onload = function() {
         //keycode
         var code = (e.keyCode ? e.keyCode : e.which)
 
-        var code1 = (e.key ? e.key : e.key)
         if(code === 13)
         {
             var desiredPage = document.getElementById('current_page').valueAsNumber

@@ -2,8 +2,6 @@
     require '../vendor/autoload.php';
     header('Content-Type: application/json');
 
-    use GuzzleHttp\Exception\ClientException;
-    use Http\Client\Exception\RequestException;
     use Safe\Exceptions\FilesystemException;
     use TheCodingMachine\Gotenberg\Client;
     use TheCodingMachine\Gotenberg\DocumentFactory;
