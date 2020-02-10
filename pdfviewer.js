@@ -2,11 +2,25 @@ window.onload = function() {
 
     console.log('###### pdfviewer - BlaiseCz ######');
 
+    var my_pdf_viewer = document.getElementById("my_pdf_viewer");
+    var pdf_button = document.getElementById('view_pdf');
 
-    document.getElementById('view_pdf').addEventListener('click', (e) => {
-            var link2 = 'http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309410&';
-            getPDFsource('http://localhost:8888/pdfviewer/pdf_viewer/gote_api_examples/gote_external_urls.php?url_address='+link2);
+    pdf_button.addEventListener('click', (e) => {
+
+        if(myState.opened === 0) {
+            var value = pdf_button.getAttribute("value");
+            //loading
+            my_pdf_viewer.classList.add("loader")
+
+            getPDFsource('http://localhost:8888/pdfviewer/pdf_viewer/gote_api_examples/gote_external_urls.php?url_address='
+                + value );
+
+        } else {
+            myState.opened = 0;
+            my_pdf_viewer.style.display = "none";
+        }
     });
+
 
     /**
      * PDF.JS VIEWING TOOL
@@ -14,7 +28,8 @@ window.onload = function() {
     var myState = {
                 pdf:null,
                 currentPage:1,
-                zoom:1
+                zoom:1,
+                opened:0
             };
     
     function getPDFsource(pdfSource) {
@@ -39,6 +54,12 @@ window.onload = function() {
                 canvasContext:ctx,
                 viewport:viewport
             });
+
+            my_pdf_viewer.classList.remove("loader");
+            my_pdf_viewer.style.display = "block";
+            myState.opened = 1;
+
+            console.log('done');
         })
     }
     
