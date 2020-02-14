@@ -5,12 +5,14 @@
         <title>PDF.js test</title>
         <link rel="stylesheet" type="text/css" href="viewer.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.3.200/pdf.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <script src="pdfviewer.js"></script>
     </head>
 
     <body>
         </div>
-        <button id="view_pdf" value="http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309410&"></button>
+        <button id="view_pdf" value="http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309410&" type></button>
+<!--       <button id="view_pdf" value="http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309409"></button>-->
         <div id="my_pdf_viewer">
             <div id="canvas_container">
                 <canvas id="pdf_renderer"></canvas>
@@ -27,6 +29,5 @@
                 </div>
             </div>
         </div>
-
     </body>
 </html>
