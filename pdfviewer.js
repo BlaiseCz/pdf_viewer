@@ -1,6 +1,5 @@
 //rewrite to jquery
 $(document).ready(function() {
-// window.onload = function() {
 
     console.log('###### pdfviewer - BlaiseCz ######');
 
@@ -10,7 +9,6 @@ $(document).ready(function() {
             getPDFsource('http://localhost:8888/pdfviewer/pdf_viewer/gote_api_examples/gote_external_urls.php?url_address='
                 + value );
     });
-
 
     /**
      * PDF.JS VIEWING TOOL
@@ -104,5 +102,4 @@ $(document).ready(function() {
             render()
         }
     });
-
 });

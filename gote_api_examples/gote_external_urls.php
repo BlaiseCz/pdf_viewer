@@ -52,6 +52,7 @@
         return $file_string;
     }
 
+    //po stornie js lub php encode/decode atrybutu GET
     $url1 = 'http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309410';
 
     /**
@@ -68,7 +69,7 @@
 
         $url = $_GET['url_address'];
         $url .= '&instance='.$_GET['instance'];
-        $url .= '&parent='.$_GET['parent'];
+        $url .= '&parent='.$_GET['parent']  ;
         $url .= '$lang='.$_GET['lang'];
         $url .= '&id='.$_GET['id'];
 
