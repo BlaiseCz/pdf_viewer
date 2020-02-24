@@ -56,29 +56,13 @@
     $url1 = 'http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309410';
 
     /**
-     * SET url which you want to be passed, try using urlencode() function, in my example it wasn't good solution
+     * SET url which you want to be passed
      *
      * pattern
      * http://mypage.com?url_address=http://secondpage.com/att.pdf
      */
-//    print_r($_GET);
-    if(isset($_GET['url_address']) && isset($_GET['instance'])
-                                && isset($_GET['parent']) && isset($_GET['lang']) && isset($_GET['id'])
-//        && isset($_GET['name'])
-    ) {
-
-        $url = $_GET['url_address'];
-        $url .= '&instance='.$_GET['instance'];
-        $url .= '&parent='.$_GET['parent']  ;
-        $url .= '$lang='.$_GET['lang'];
-        $url .= '&id='.$_GET['id'];
-
-
-
-//        echo 'http://poznan.pl/public/bip/attachments.att?co=show&instance=1057&parent=37297&lang=pl&id=309410'."\n";
-//        echo $url;
-
-        $name = $_GET['name'];
+if(isset($_GET['url_address'])){
+        $url = urldecode($_GET['url_address']);
         echo create_pdf($url);
     }
 ?>
