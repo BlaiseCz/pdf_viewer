@@ -5,3 +5,11 @@ services:
       image: thecodingmachine/gotenberg:6
       ports:
         - "3000:3000"
+
+  web:
+    image: php:7.3-apache
+    container_name: php73
+    volumes:
+      - ./php:/var/www/html/
+    ports:
+      - 8000:80

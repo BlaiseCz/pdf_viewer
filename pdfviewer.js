@@ -8,7 +8,10 @@ $(document).ready(function() {
             var value = this.getAttribute("value");
             var encoded = encodeURIComponent(value);
 
-            getPDFsource('http://localhost:8888/pdfviewer/pdf_viewer/gote_api_examples/gote_external_urls.php?url_address='
+            // getPDFsource('http://localhost:8888/pdfviewer/pdf_viewer/gote_api_examples/gote_external_urls.php?url_address='
+            //     + encoded );
+
+            getPDFsource('http://localhost:8000/pdf_viewer.php/?url_address='
                 + encoded );
     });
 

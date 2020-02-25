@@ -61,8 +61,9 @@
      * pattern
      * http://mypage.com?url_address=http://secondpage.com/att.pdf
      */
-if(isset($_GET['url_address'])){
-        $url = urldecode($_GET['url_address']);
-        echo create_pdf($url);
+    if(isset($_GET['url_address'])){
+            $url = urldecode($_GET['url_address']);
+            echo create_pdf($url);
     }
+
 ?>
