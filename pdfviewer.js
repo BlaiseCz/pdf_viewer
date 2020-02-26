@@ -3,17 +3,36 @@ $(document).ready(function() {
 
     console.log('###### pdfviewer - BlaiseCz ######');
 
-    $('#view_pdf').click(function() {
 
-            var value = this.getAttribute("value");
-            var encoded = encodeURIComponent(value);
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    };
+
+    var url_address = getUrlParameter('url_address');
+
+    var loadPAge = function(url_address) {
+            var encoded = encodeURIComponent(url_address);
+            console.log(encoded)
 
             // getPDFsource('http://localhost:8888/pdfviewer/pdf_viewer/gote_api_examples/gote_external_urls.php?url_address='
             //     + encoded );
 
             getPDFsource('http://localhost:8000/pdf_viewer.php/?url_address='
                 + encoded );
-    });
+    };
+
+    loadPAge(url_address)
 
     /**
      * PDF.JS VIEWING TOOL
