@@ -22,11 +22,9 @@ $(document).ready(function() {
     var url_address = getUrlParameter('url_address');
 
     var loadPAge = function(url_address) {
-            var encoded = encodeURIComponent(url_address);
-            console.log(encoded)
 
-            // getPDFsource('http://localhost:8888/pdfviewer/pdf_viewer/gote_api_examples/gote_external_urls.php?url_address='
-            //     + encoded );
+            console.log(url_address)
+            var encoded = encodeURIComponent(url_address);
 
             getPDFsource('http://localhost:8000/pdf_viewer.php/?url_address='
                 + encoded );
@@ -51,6 +49,7 @@ $(document).ready(function() {
     }
 
     function render() {
+        console.log('render');
         myState.pdf.getPage(myState.currentPage).then(page => {
             var canvas = document.getElementById("pdf_renderer");
             var ctx = canvas.getContext("2d");
@@ -64,6 +63,7 @@ $(document).ready(function() {
                 viewport:viewport
             });
 
+            $('.lds-spinner').css('display', 'none');
             $('#my_pdf_viewer').css('display', 'block');
 
             console.log('done');
