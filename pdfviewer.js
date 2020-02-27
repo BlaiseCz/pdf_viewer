@@ -60,8 +60,8 @@ $(document).ready(function () {
             });
 
             $('.lds-spinner').css('display', 'none');
-            $('#my_pdf_viewer').css('display', 'block');
-            $('#controls').css('display', 'block');
+            $('#my_pdf_viewer').css('display', 'inline-block');
+            $('#controls').css('display', 'inline-block');
 
             console.log('done');
         })

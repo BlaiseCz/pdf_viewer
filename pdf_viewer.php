@@ -9,7 +9,6 @@
 
     function create_pdf($url) {
 
-//        $client_path = 'http://localhost:3000';
         $client_path = 'http://gotenberg:3000';
 
         try {
@@ -33,9 +32,7 @@
         
             $response = $client->get_response($request); 
             $fileStream = $response->getBody()->getContents();
-            // var_dump($fileStream); // pdf
             $client->post($request);
-//            $client->store($request, '../pdfs/'.$name.'.pdf');
             return $fileStream;
         } catch (Exception $e) {
             echo '<br>'.'3Wystąpił wyjątek nr '.$e->getCode().', jego komunikat to:'.$e->getMessage();
