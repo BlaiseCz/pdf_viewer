@@ -4,7 +4,7 @@ simple pdf viewer/converter service (not using google API)
 
 ##
 
-##HOW TO USE
+## HOW TO USE
 1. Run docker images by typing ``docker-compose run`` in terminal
 2. In your browser paste:
 `` 
