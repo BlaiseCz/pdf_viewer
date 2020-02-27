@@ -1,6 +1,0 @@
-{
-    "require": {
-        "php-http/guzzle6-adapter": "^2.0",
-        "thecodingmachine/gotenberg-php-client": "^6.1"
-    }
-}
