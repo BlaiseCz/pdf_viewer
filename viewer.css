@@ -1,15 +1,15 @@
 body {
-    background: #333;
+  margin:0 0;  
 }
 
 #my_pdf_viewer {
     display: none;
-    margin-top: 80px;
 }
 
 #canvas_container {
-    width:717px;
+    width:700px;
     height:500px;
+    margin-top: 80px;
     overflow: auto;
     text-align:center;
     border: 2px solid;
@@ -36,12 +36,12 @@ body {
 #go_previous, #go_next{
     display:inline-block;
     padding:0.4em 1.4em;
-    margin:0.3em 0.3em;
+    margin:0.06em 0.3em;
     text-decoration:none;
     font-family:'Roboto',sans-serif;
     text-transform:uppercase;
     color:#FFFFFF;
-    background-color:#3369ff;
+    background-color:#002157;
     box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
     text-align:center;
 }
@@ -59,16 +59,25 @@ body {
     font-family:'Roboto',sans-serif;
     font-weight:400;
     color:#FFFFFF;
-    background-color:#3369ff;
+    background-color:#002157;
     box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
     text-align:center;
 }
 
+#current_page_num {
+    position: absolute;
+    margin-left: 7px;
+    text-align: center;
+    font-size: 30px;
+}
+
 /* zoom in/out*/
+#zoom-controls {
+    padding: 5px 0;
+}
 
 #zoom_in {
     display: inline-block;
-    /* background-image: url(/img/zoom_in.svg); */
     width: 30px;
     height: 30px;
     background: url(img/zoom-in.svg);
@@ -77,7 +86,6 @@ body {
 
 #zoom_out {
     display: inline-block;
-    /* background-image: url(/img/zoom_out.svg); */
     width: 30px;
     height: 30px;
     background: url(img/zoom-out.svg);
@@ -89,12 +97,22 @@ body {
     text-align: center;
 }
 
+#nav-color {
+    opacity: 0.8;
+    background-color: #737373;
+}
+
 /* loader */
+#loader {
+    margin-left: 230px;
+    margin-top: 200px;
+}
+
 .lds-spinner {
     display: inline-block;
     position: relative;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
 }
 .lds-spinner div {
     transform-origin: 40px 40px;
@@ -109,7 +127,7 @@ body {
     width: 6px;
     height: 18px;
     border-radius: 20%;
-    background: #fff;
+    background: #0072bc;
 }
 .lds-spinner div:nth-child(1) {
     transform: rotate(0deg);

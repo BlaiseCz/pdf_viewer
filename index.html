@@ -11,24 +11,29 @@
 
     <body>
     
-
-        <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-
-        <div id="controls">
-            <div id="nav-controls">
-                <button id="go_previous"><</button>
-                <input type="number" value="1" id="current_page">
-                <button id="go_next">></button>
-                <div id="zoom-controls">
-                    <div id="zoom_in"></div>
-                    <div id="zoom_out"></div>
-                </div>
+        <div id="container">
+            <div id="loader">
+                <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
             </div>
-        </div>
 
-        <div id="my_pdf_viewer">
-            <div id="canvas_container">
-                <canvas id="pdf_renderer"></canvas>
+            <div id="my_pdf_viewer">
+                <div id="canvas_container">
+                    <canvas id="pdf_renderer"></canvas>
+                </div>
+
+                <div id="controls">
+                    <div id="nav-controls">
+                        <div id="nav-color">
+                            <button id="go_previous"><</button>
+                            <div id="current_page">0/0</div>
+                            <button id="go_next">></button>
+                            <div id="zoom-controls">
+                                <div id="zoom_in"></div>
+                                <div id="zoom_out"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

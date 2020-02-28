@@ -1,9 +1,6 @@
 //rewrite to jquery
 $(document).ready(function () {
 
-    console.log('###### pdfviewer - BlaiseCz ######');
-
-
     var getUrlParameter = function getUrlParameter(sParam) {
         var sPageURL = window.location.search.substring(1),
             sURLVariables = sPageURL.split('&'),
@@ -59,12 +56,17 @@ $(document).ready(function () {
                 viewport: viewport
             });
 
-            $('.lds-spinner').css('display', 'none');
-            $('#my_pdf_viewer').css('display', 'inline-block');
-            $('#controls').css('display', 'inline-block');
+            $('#loader').css('display', 'none');
+            $('#my_pdf_viewer').css('display', 'block');
+            $('#controls').css('display', 'block');
+            $('body').css('background', '#333');
+            updateCurrentPageNum(myState.currentPage)
 
-            console.log('done');
         })
+    }
+
+    function updateCurrentPageNum(currentNum) {
+        $('#current_page').html(currentNum + '/' + myState.pdf._pdfInfo.numPages)
     }
 
     /**
@@ -74,8 +76,7 @@ $(document).ready(function () {
         if (myState.pdf == null || myState.currentPage === 1) return; //pierwsza strona
 
         myState.currentPage -= 1;
-        document.getElementById('current_page').value = myState.currentPage;
-
+        updateCurrentPageNum(myState.currentPage)
         render()
     });
 
@@ -83,27 +84,9 @@ $(document).ready(function () {
         if (myState.pdf == null || myState.currentPage >= myState.pdf._pdfInfo.numPages) return; //ostatnia strona
 
         myState.currentPage = myState.currentPage + 1;
-        document.getElementById('current_page').value = myState.currentPage;
+        updateCurrentPageNum(myState.currentPage)
 
         render()
-    });
-
-    $('#current_page').click(function () {
-        if (myState.pdf == null) return;
-
-        //keycode
-        var code = (e.keyCode ? e.keyCode : e.which)
-
-        if (code === 13) {
-            var desiredPage = document.getElementById('current_page').valueAsNumber
-
-            if (desiredPage >= 1 && desiredPage <= myState.pdf._pdfInfo.numPages) {
-                myState.currentPage = desiredPage;
-                document.getElementById('current_page').value = desiredPage;
-
-                render();
-            }
-        }
     });
 
     $('#zoom_in').click(function () {
